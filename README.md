@@ -1,3 +1,17 @@
+## Install
+
+```
+composer install
+npm install
+npm run dev
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:update --force
+docker compose up
+```
+
+Browse to http://localhost:8080
+
+
 ## Contributing Guide
 
 The recommended way to install PHP CS Fixer is to use [Composer](https://getcomposer.org/download/)
