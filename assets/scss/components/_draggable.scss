@@ -1,0 +1,36 @@
+$dropzone-border-width: 2px;
+$dropzone-border-color: $gray-500;
+$dropzone-border-style: dotted;
+
+$dropzone-over-border-width: 2px;
+$dropzone-over-border-color: $gray-500;
+$dropzone-over-border-style: dashed;
+
+
+$dropzone-background-color: $gray-100;
+$dropzone-over-background-color: $success;
+
+.draggable {
+    .draggable__item.dragging {
+        opacity: 0.5;
+    }
+
+    .dropzone {
+        border-radius: 5px;
+        background-color: $dropzone-background-color;
+        border: $dropzone-border-width $dropzone-border-style $dropzone-border-color;
+        transition: 200ms ease-in-out;
+
+        &.dropzone-over {
+            border: $dropzone-over-border-width $dropzone-over-border-style $dropzone-over-border-color;
+            background-color: rgba($dropzone-over-background-color,0.5);
+        }
+
+        .dropzone-item{
+
+        }
+    }
+}
+
+
+

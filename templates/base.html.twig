@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <header class="header">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand me-4 pr-2" href="{{ path('tasks_index') }}">
+                &check;
+                </a>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#header-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Show/Hide navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="header-menu">
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" title="Home" href="{{ path('tasks_index') }}">
+                                Home
+                            </a>
+                        </li>
+                    </ul>
+                    {% if is_granted('ROLE_USER') %}
+                        <ul class="nav navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" title="Tasks Editor" href="{{ path('tasks_editor') }}">
+                                    Create
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav ms-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('user_config') }}">
+                                    Config
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('security_logout') }}">
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <nav class="bg-light border-bottom">
+            <div class="container">
+            </div>
+        </nav>
+    </header>
+    {{ include('modal/legal.html.twig') }}
+    <main role="main" class="container mt-5" id="main">
+
+        {% for message in app.flashes('notification') %}
+            <div {{ stimulus_controller('alert') }} class="alert alert-info alter-dismissible d-flex align-items-center fade show">:
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% block body %}{% endblock %}
+    </main>
+    </body>
+</html>

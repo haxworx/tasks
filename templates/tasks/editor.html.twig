@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task Editor{% endblock %}
+
+{% block body %}
+    <div>
+        <div class="container p-1" align="right">
+            <a href="{{ path('tasks_index') }}">
+                <button class="btn btn-primary" type="button">Back</button>
+            </a>
+        </div>
+        <div class="container p-5">
+            <h3>Editor</h3>
+            <hr>
+            {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            <div {{ stimulus_controller('date_picker') }} class="row">
+                {{ form_row(form.timeStart,{'row_attr':{'class': 'col-sm-4'},'attr':{'data-date-picker-options': '{"enableTime": true, "minDate": "today", "dateFormat": "Y-m-d H:i"}' }}) }}
+                {{ form_row(form.timeFinish,{'row_attr':{'class': 'col-sm-4'},'attr':{'data-date-picker-options': '{"enableTime": true, "minDate": "today", "dateFormat": "Y-m-d H:i"}' }}) }}
+            </div>
+            {{ form_row(form.notes) }}
+            {{ form_row(form.inProgress) }}
+            {{ form_row(form.isCompleted) }}
+            <button type="submit" class="btn btn-primary"
+                    style="float: left;">{{ is_edit ? "Update" : "Create" }}</button>
+            {{ form_end(form) }}
+            {% if is_edit %}
+                {{ include('modal/tasks_delete.html.twig') }}
+
+                <div class="container mt-5 pt-5">
+
+                    <div class="container" align="right">
+                        <a class="float-end" href="{{ path('job_editor', { 'task': task }) }}">
+                            <button type="button" class="btn btn-primary btn-sm">Add Job</button>
+                        </a>
+                    </div>
+
+                    <h3>Jobs </h3>
+                    <hr>
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>title</th>
+                            <th>description</th>
+                            <th>completed</th>
+                            <th>delete?</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for index, job in jobs %}
+                            <form method="post" action="{{ path('job_update', { 'job': job.id }) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token('job_update') }}">
+                                <tr>
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ job.title }}</td>
+                                    <td>{{ job.description|ellipsis }}</td>
+                                    <td><input type="checkbox"
+                                               name="is_completed" {{ job.isCompleted ? 'checked' : '' }}></td>
+                                    <td><input type="checkbox" name="delete"></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-sm btn-primary">Apply</button>
+                                        <a href="{{ path('job_editor', {'task': task, 'job': job.id}) }}">
+                                            <button type="button" class="btn btn-sm btn-secondary">View</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </form>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

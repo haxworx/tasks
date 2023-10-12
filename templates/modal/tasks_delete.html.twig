@@ -1,0 +1,23 @@
+<div {{ stimulus_controller('tasks_delete', { token: csrf_token('tasks_delete'), task: task}) }}>
+    <div class="modal" tabindex="-1" {{ stimulus_target('tasks_delete', 'modal') }}>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure?</h5>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the selected task?</p>
+                    <p>To confirm please enter "delete me".</p>
+                    <input type="text" class="confirm" {{ stimulus_target('tasks_delete', 'confirm') }}>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                    </button>
+                    <div {{ stimulus_target('tasks_delete', 'button') }} class="btn btn-primary disabled">Delete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-warning mx-4" {{ stimulus_action('tasks_delete', 'confirm') }} type="submit">Delete</button>
+</div>

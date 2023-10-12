@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block body %}
+    <div {{ stimulus_controller('tasks') }}>
+        <h3>Tasks</h3>
+
+        {% if tasks|length == 0 %}
+            <p class="center">Your tasks will appear here once scheduled.</p>
+        {% else %}
+            <form method="post" action="{{ path('tasks_priority') }}">
+
+                <table class="table table-striped align-middle">
+                    <thead>
+                    <tr>
+                        <th>priority</th>
+                        <th>title</th>
+                        <th>description</th>
+                        <th>start</th>
+                        <th>finish</th>
+                        <th>in-progress</th>
+                        <th>complete</th>
+                        <th>late</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td><input name="{{ task.id }}" min="1" max="100" type="number" value="{{ task.priority }}">
+                            </td>
+                            <td>{{ task.title }}</td>
+                            <td>{{ task.description|ellipsis }}</td>
+                            <td>{{ task.timeStart|fuzzy_date }}</td>
+                            <td>{{ task.timeFinish|fuzzy_date }}</td>
+                            <td>{{ task.inProgress ? '&check;' : '&cross;' }}</td>
+                            <td>{{ task.isCompleted ? '&check;' : '&cross;' }}</td>
+                            <td>{{ task.isLate ? '&check;' : '&cross;' }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('tasks_editor', {'task': task.id }) }}">
+                                    <button type="button" class="btn btn-primary btn-sm">View</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-secondary">Update</button>
+            </form>
+
+        {% endif %}
+    </div>
+{% endblock %}

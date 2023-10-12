@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Job Editor{% endblock %}
+
+{% block body %}
+    <div class="container p-1" align="right">
+        <a href="{{ path('tasks_editor', {'task': task }) }}"><button class="btn btn-primary" type="button">Back</button></a>
+    </div>
+<div class="container p-5">
+
+    <h3>Add Job</h3>
+    <hr>
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.notes) }}
+    {{ form_row(form.isCompleted) }}
+    <button type="submit" class="btn btn-primary">{{ is_edit ? 'Update' : 'Create' }}</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

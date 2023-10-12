@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Config{% endblock %}
+
+{% block body %}
+<div class="pt-3">
+    <h3>Change Password</h3>
+    <hr>
+    {{ form_start(form) }}
+    {{ form_row(form.oldPassword) }}
+    {{ form_row(form.plainPassword) }}
+    {{ form_row(form.confirmPassword) }}
+    <button type="submit" class="btn btn-primary">Update</button>
+    {{ form_end(form) }}
+</div>
+    <div class="pt-3">
+    <h3>Update Api Token</h3>
+    <hr>
+        <p>Api Token: {{ api_token }}</p>
+    {{ form_start(token_form) }}
+    {{ form_end(token_form) }}
+    </div>
+
+{% endblock %}
