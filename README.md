@@ -9,7 +9,7 @@ php bin/console doctrine:schema:update --force
 docker compose up
 ```
 
-Browse to http://localhost:8080
+Browse to https://localhost
 
 
 ## Contributing Guide

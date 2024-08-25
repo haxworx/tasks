@@ -1,14 +1,10 @@
-version: '3'
-
 services:
-
   nginx:
-    image: nginx:latest
     container_name: tasks-nginx
     build:
       context: .docker/nginx
     ports:
-      - "8080:80"
+      - "443:443"
     volumes:
       - .docker/nginx/default.conf:/etc/nginx/conf.d
       - ./:/code
@@ -28,7 +24,6 @@ services:
 
   database:
     container_name: tasks-database
-    image: mysql
     build:
       context: .docker/database
     environment:
