@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute]
 class TimeRange extends Constraint
 {
-    public $message = 'Finish time must be greater than start time.';
+    public string $message = 'Finish time must be greater than start time.';
 }
