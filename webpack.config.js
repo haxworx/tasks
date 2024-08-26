@@ -14,6 +14,9 @@ Encore
         context: "./assets"
     })
     .splitEntryChunks()
+
+    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    .enableStimulusBridge('./assets/controllers.json')
     .enableSingleRuntimeChunk()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
