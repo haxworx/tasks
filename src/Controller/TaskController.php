@@ -18,7 +18,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/tasks', name: 'tasks_')]
-class TasksController extends AbstractController
+class TaskController extends AbstractController
 {
     public function __construct(
         private TaskRepository $taskRepository,
