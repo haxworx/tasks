@@ -41,7 +41,6 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav ms-auto">
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('user_config') }}">
                                     Config
@@ -64,7 +63,6 @@
     </header>
     {{ include('modal/legal.html.twig') }}
     <main role="main" class="container mt-5" id="main">
-
         {% for message in app.flashes('notification') %}
             <div {{ stimulus_controller('alert') }} class="alert alert-info alter-dismissible d-flex align-items-center fade show">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
