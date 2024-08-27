@@ -1,3 +1,7 @@
+# Tasks
+
+A simple task editor. Using Symfony, PHP and JavaScript.
+
 ## Install
 
 ```
@@ -10,7 +14,6 @@ docker compose up
 ```
 
 Browse to https://localhost
-
 
 ## Contributing Guide
 
