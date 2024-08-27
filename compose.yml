@@ -23,9 +23,9 @@ services:
       - "9000:9000"
 
   database:
-    container_name: tasks-database
+    container_name: tasks-mysql
     build:
-      context: .docker/database
+      context: .docker/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=supersecret
       - MYSQL_USER=user
