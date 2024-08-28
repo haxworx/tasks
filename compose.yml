@@ -19,8 +19,6 @@ services:
     working_dir: /code
     volumes:
       - ./:/code
-    ports:
-      - "9000:9000"
 
   database:
     container_name: tasks-mysql
