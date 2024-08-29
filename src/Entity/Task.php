@@ -33,10 +33,10 @@ class Task
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $timeStart;
 
-    #[ORM\Column(type: TYPES::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $timeFinish;
 
-    #[ORM\Column(type: TYPES::DATETIME_IMMUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

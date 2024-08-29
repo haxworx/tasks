@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Validator\ComplexPassword;
 use App\Validator\ConfirmPassword;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -43,6 +44,7 @@ class UserConfigType extends AbstractType
                         'min' => 6,
                         'max' => 4096,
                     ]),
+                    new ComplexPassword(),
                 ],
             ])
             ->add('confirmPassword', PasswordType::class, [
@@ -50,7 +52,7 @@ class UserConfigType extends AbstractType
                     'required' => true,
                 ],
                 'constraints' => [
-                    new NotBLank([
+                    new NotBlank([
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
