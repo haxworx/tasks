@@ -13,7 +13,7 @@ class ComplexPasswordValidator extends ConstraintValidator
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof ComplexPassword) {
-            throw new UnexpectedTypeException($constraint, ConfirmPassword::class);
+            throw new UnexpectedTypeException($constraint, ComplexPassword::class);
         }
 
         if ((!preg_match('/[A-Z]+/', $value)) || (!preg_match('/[0-9]+/', $value))) {
