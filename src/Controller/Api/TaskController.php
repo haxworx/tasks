@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/v1', name: 'api_')]
-class TasksController extends AbstractController
+class TaskController extends AbstractController
 {
     public function __construct(
         private TaskRepository $taskRepository,
