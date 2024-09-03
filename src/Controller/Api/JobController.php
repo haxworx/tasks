@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
+use App\Controller\Traits\IsUserAssociated;
 use App\Entity\Job;
-use App\Entity\Task;
 use App\Repository\JobRepository;
 use App\Repository\TaskRepository;
 use Psr\Log\LoggerInterface;
@@ -21,6 +21,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api/v1', name: 'api_')]
 class JobController extends AbstractController
 {
+    use IsUserAssociated;
+
     public function __construct(
         private TaskRepository $taskRepository,
         private JobRepository $jobRepository,
@@ -148,20 +150,5 @@ class JobController extends AbstractController
             Response::HTTP_OK,
             ['content-type' => 'application/json']
         );
-    }
-
-    private function isUserAssociated(Task $task): bool
-    {
-        $associated = $task->getUserId()->toBinary() === $this->getUser()->getId()->toBinary();
-        if (!$associated) {
-            $this->logger->alert('Unauthorized access attempt.', [
-                'ip' => $this->requestStack->getCurrentRequest()->getClientIp(),
-                'user' => $this->getUser()->getUserIdentifier(),
-                'task' => $task->getId(),
-                'route' => $this->requestStack->getCurrentRequest()->attributes->get('_route'),
-            ]);
-        }
-
-        return $associated;
     }
 }

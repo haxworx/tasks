@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Controller\Traits\IsUserAssociated;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
@@ -20,6 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tasks', name: 'tasks_')]
 class TaskController extends AbstractController
 {
+    use IsUserAssociated;
+
     public function __construct(
         private TaskRepository $taskRepository,
         private LoggerInterface $logger,
@@ -145,20 +148,5 @@ class TaskController extends AbstractController
     private function isPriorityValid(int $value): bool
     {
         return ($value >= 1) && ($value <= 100);
-    }
-
-    private function isUserAssociated(Task $task): bool
-    {
-        $associated = $task->getUserId()->toBinary() === $this->getUser()->getId()->toBinary();
-        if (!$associated) {
-            $this->logger->alert('Unauthorized access attempt.', [
-                'ip' => $this->requestStack->getCurrentRequest()->getClientIp(),
-                'user' => $this->getUser()->getUserIdentifier(),
-                'task' => $task->getId(),
-                'route' => $this->requestStack->getCurrentRequest()->attributes->get('_route'),
-            ]);
-        }
-
-        return $associated;
     }
 }
