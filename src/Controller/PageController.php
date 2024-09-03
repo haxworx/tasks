@@ -13,8 +13,6 @@ class PageController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-
         return $this->redirectToRoute('tasks_index');
     }
 }
