@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Controller\Traits\IsUserAssociated;
 use App\Entity\Job;
 use App\Entity\Task;
 use App\Form\JobType;
@@ -20,6 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/job', name: 'job_')]
 class JobController extends AbstractController
 {
+    use IsUserAssociated;
+
     public function __construct(
         private JobRepository $jobRepository,
         private NotifierInterface $notifier,
@@ -97,21 +100,5 @@ class JobController extends AbstractController
         }
 
         return $this->redirectToRoute('tasks_editor', ['task' => $task->getId()]);
-    }
-
-    private function isUserAssociated(Task $task): bool
-    {
-        $associated = $task->getUserId()->toBinary() === $this->getUser()->getId()->toBinary();
-
-        if (!$associated) {
-            $this->logger->alert('Unauthorized access attempted', [
-                'ip' => $this->requestStack->getCurrentRequest()->getClientIp(),
-                'task' => $task->getId(),
-                'user' => $this->getUser()->getUserIdentifier(),
-                'route' => $this->requestStack->getCurrentRequest()->attributes->get('_route'),
-            ]);
-        }
-
-        return $associated;
     }
 }
