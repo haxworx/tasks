@@ -9,8 +9,8 @@ composer install
 npm install
 npm run dev
 php bin/console doctrine:database:create
-php bin/console doctrine:schema:update --force --complete
-docker compose up
+php bin/console doctrine:schema:update --force
+docker compose up -d --wait
 ```
 
 Browse to https://localhost
