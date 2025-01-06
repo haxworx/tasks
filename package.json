@@ -21,7 +21,7 @@
         "boxicons": "^2.1.4",
         "flatpickr": "^4.6.13",
         "postcss-loader": "^8.1.1",
-        "sass-loader": "^13.0.0 || ^14.0.0"
+        "sass-loader": "^14.2.1"
     },
     "devDependencies": {
         "@babel/core": "^7.25.2",
